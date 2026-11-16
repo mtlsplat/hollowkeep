@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mtlsplat.github.io/hollowkeep/sitemap.xml

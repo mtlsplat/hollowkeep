@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#07090a" />
+    <meta name="google-site-verification" content="Ipsbu28Xg9rqU6BOXHQh6D1ppqtnbhk4o7QAE3AULJg" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23070809'/%3E%3Cpath d='M16 4l4 9 8 1-6 6 2 8-8-4-8 4 2-8-6-6 8-1z' fill='%23b39a63'/%3E%3C/svg%3E" />
+    <title>HOLLOW KEEP — Free Browser Dungeon Horror Game</title>
+    <meta
+      name="description"
+      content="Play HOLLOW KEEP free in your browser: a first-person medieval dungeon horror game with four descending levels, a three-phase boss, torchlight, traps, keys and pixel-art PBR visuals. No download, no install."
+    />
+    <meta
+      name="keywords"
+      content="Hollow Keep, hollowkeep, free browser game, dungeon crawler, first person horror game, medieval horror game, WebGL game, Three.js game, play online, no download"
+    />
+    <meta name="author" content="mtlsplat" />
+    <link rel="canonical" href="https://mtlsplat.lol/hollowkeep/" />
+    <link rel="alternate" hreflang="en" href="https://mtlsplat.lol/hollowkeep/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HOLLOW KEEP" />
+    <meta property="og:title" content="HOLLOW KEEP — Free Browser Dungeon Horror Game" />
+    <meta
+      property="og:description"
+      content="A first-person medieval dungeon horror game you can play free in your browser: four levels, a three-phase boss, torchlight, traps and pixel-art PBR visuals."
+    />
+    <meta property="og:url" content="https://mtlsplat.lol/hollowkeep/" />
+    <meta property="og:image" content="https://mtlsplat.lol/hollowkeep/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="HOLLOW KEEP — a torchlit stone dungeon corridor" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HOLLOW KEEP — Free Browser Dungeon Horror Game" />
+    <meta
+      name="twitter:description"
+      content="A first-person medieval dungeon horror game in your browser: four levels, a three-phase boss, torchlight, traps and pixel-art PBR visuals."
+    />
+    <meta name="twitter:image" content="https://mtlsplat.lol/hollowkeep/og.jpg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "HOLLOW KEEP",
+        "alternateName": ["Hollow Keep", "HollowKeep", "hollowkeep"],
+        "url": "https://mtlsplat.lol/hollowkeep/",
+        "description": "HOLLOW KEEP is a free first-person medieval dungeon horror game that runs in the browser: four descending levels, a three-phase boss, torchlight survival, traps, keys and pixel-art PBR rendering.",
+        "genre": ["Dungeon crawler", "Horror", "Action", "First-person"],
+        "gamePlatform": ["Web browser", "PC"],
+        "playMode": "SinglePlayer",
+        "applicationCategory": "Game",
+        "operatingSystem": "Any WebGL 2 browser (Chrome, Edge, Firefox)",
+        "inLanguage": "en",
+        "image": "https://mtlsplat.github.io/hollowkeep/og.jpg",
+        "screenshot": "https://mtlsplat.github.io/hollowkeep/og.jpg",
+        "author": {
+          "@type": "Person",
+          "name": "mtlsplat",
+          "url": "https://github.com/mtlsplat"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    </script>
+    <script type="module" crossorigin src="./assets/index-DPcAu55R.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BJ-LrIZ0.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas"></canvas>
+
+      <!-- Boot / loading -->
+      <div id="boot" class="screen">
+        <div class="boot-inner">
+          <h1 class="game-title">HOLLOW<br /><span>KEEP</span></h1>
+          <p class="boot-tag">A descent in four parts</p>
+          <div class="boot-bar"><i id="boot-fill"></i></div>
+          <p id="boot-status" class="boot-status">Lighting the torches&hellip;</p>
+        </div>
+      </div>
+
+      <!-- Main menu -->
+      <div id="main-menu" class="screen hidden">
+        <div class="menu-scrim"></div>
+        <div class="main-menu-inner">
+          <div class="logo-block">
+            <h1 class="game-title">HOLLOW<br /><span>KEEP</span></h1>
+            <p class="logo-tag">The dark remembers every step.</p>
+          </div>
+          <nav class="menu-nav" id="main-nav">
+            <button class="menu-btn" data-action="new-game">New Game</button>
+            <button class="menu-btn" data-action="continue" id="btn-continue">Continue</button>
+            <button class="menu-btn" data-action="settings">Settings</button>
+            <button class="menu-btn" data-action="controls">Controls</button>
+            <button class="menu-btn" data-action="credits">Credits</button>
+            <button class="menu-btn desktop-only hidden" data-action="quit-game">Quit</button>
+          </nav>
+          <p class="menu-foot">Best played with headphones &middot; v1.0 &middot; <a class="menu-about-link" href="./about.html">About &amp; how to play</a></p>
+        </div>
+      </div>
+
+      <!-- HUD -->
+      <div id="hud" class="hidden">
+        <div class="hud-top-left">
+          <div class="stat-block health-block">
+            <div class="stat-label">VITALITY</div>
+            <div class="stat-bar"><i id="health-fill"></i><b id="health-ghost"></b></div>
+            <div class="stat-num"><span id="health-num">100</span> / 100</div>
+          </div>
+          <div class="stat-block stamina-block">
+            <div class="stat-label">BREATH</div>
+            <div class="stat-bar slim"><i id="stamina-fill"></i></div>
+          </div>
+          <div class="stat-block torch-block">
+            <div class="stat-label">TORCH</div>
+            <div class="stat-bar slim torch-bar"><i id="torch-fill"></i></div>
+          </div>
+        </div>
+
+        <div class="hud-top-right">
+          <div id="key-tray" class="key-tray"></div>
+          <div id="objective" class="objective"></div>
+        </div>
+
+        <div id="crosshair" class="crosshair"><i></i><b></b></div>
+        <div id="interact-prompt" class="interact-prompt hidden"><kbd>E</kbd><span id="interact-text">Interact</span></div>
+        <div id="damage-indicators" class="damage-indicators"></div>
+
+        <div class="hud-bottom">
+          <div id="hotbar" class="hotbar"></div>
+          <div id="equipped-label" class="equipped-label"></div>
+        </div>
+
+        <div id="boss-ui" class="boss-ui hidden">
+          <div class="boss-name" id="boss-name">The Hollow King</div>
+          <div class="boss-sub" id="boss-sub">Sovereign of the Drowned Throne</div>
+          <div class="boss-bar"><i id="boss-fill"></i></div>
+        </div>
+
+        <div id="message-log" class="message-log"></div>
+        <div id="level-card" class="level-card hidden">
+          <div class="level-card-rule"></div>
+          <h2 id="level-card-title"></h2>
+          <p id="level-card-sub"></p>
+          <div class="level-card-rule"></div>
+        </div>
+        <div id="hurt-flash" class="hurt-flash"></div>
+        <div id="fade" class="fade"></div>
+      </div>
+
+      <!-- Interaction / loading transition -->
+      <div id="loading" class="screen hidden">
+        <div class="loading-inner">
+          <div class="loading-rune"></div>
+          <h2 id="loading-title">Descending&hellip;</h2>
+          <p id="loading-sub"></p>
+          <div class="loading-bar"><i id="loading-fill"></i></div>
+        </div>
+      </div>
+
+      <!-- Pause -->
+      <div id="pause" class="screen overlay hidden">
+        <div class="panel pause-panel">
+          <h2 class="panel-title">Paused</h2>
+          <p class="panel-sub" id="pause-sub">The keep waits.</p>
+          <div class="panel-actions">
+            <button class="menu-btn" data-action="resume">Resume</button>
+            <button class="menu-btn" data-action="settings">Settings</button>
+            <button class="menu-btn" data-action="controls">Controls</button>
+            <button class="menu-btn" data-action="save-quit">Save &amp; Quit</button>
+            <button class="menu-btn desktop-only hidden" data-action="quit-game">Quit to Desktop</button>
+          </div>
+          <p class="desktop-hint desktop-only hidden">F11 &mdash; fullscreen &middot; F10 &mdash; quit</p>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div id="settings" class="screen overlay hidden">
+        <div class="panel settings-panel">
+          <h2 class="panel-title">Settings</h2>
+          <div class="settings-grid" id="settings-grid"></div>
+          <div class="panel-actions row">
+            <button class="menu-btn" data-action="settings-back">Back</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div id="controls" class="screen overlay hidden">
+        <div class="panel controls-panel">
+          <h2 class="panel-title">Controls</h2>
+          <div class="controls-grid" id="controls-grid"></div>
+          <div class="panel-actions row">
+            <button class="menu-btn" data-action="controls-back">Back</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credits -->
+      <div id="credits" class="screen overlay hidden">
+        <div class="panel credits-panel">
+          <h2 class="panel-title">Credits</h2>
+          <div class="credits-body">
+            <p class="cred-role">A game built in code</p>
+            <p class="cred-name">HOLLOW KEEP</p>
+            <div class="cred-spacer"></div>
+            <p class="cred-role">Design, code, art &amp; sound</p>
+            <p class="cred-name">The Hollow Workshop</p>
+            <div class="cred-spacer"></div>
+            <p class="cred-role">Engine</p>
+            <p class="cred-name">Three.js &middot; Web Audio &middot; Vite</p>
+            <div class="cred-spacer"></div>
+            <p class="cred-role">Every texture, model, note and scream</p>
+            <p class="cred-name">generated at runtime</p>
+            <div class="cred-spacer"></div>
+            <p class="cred-quote">&ldquo;The keep is not empty. It is patient.&rdquo;</p>
+          </div>
+          <div class="panel-actions row">
+            <button class="menu-btn" data-action="credits-back">Back</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory -->
+      <div id="inventory" class="screen overlay hidden">
+        <div class="panel inventory-panel">
+          <div class="inv-header">
+            <h2 class="panel-title">Satchel</h2>
+            <p class="panel-sub">The dead have no use for their things.</p>
+          </div>
+          <div class="inv-body">
+            <div class="inv-left">
+              <div class="inv-section-title">Carried</div>
+              <div id="inv-grid" class="inv-grid"></div>
+              <div class="inv-section-title hotbar-title">Belt (1&ndash;5)</div>
+              <div id="inv-hotbar" class="inv-hotbar"></div>
+            </div>
+            <div class="inv-right">
+              <div id="inv-detail" class="inv-detail">
+                <div class="inv-detail-empty">Select an item.</div>
+              </div>
+              <div class="inv-keys">
+                <div class="inv-section-title">Keys</div>
+                <div id="inv-key-list" class="inv-key-list"></div>
+              </div>
+            </div>
+          </div>
+          <div class="inv-actions">
+            <button class="inv-btn" id="inv-use">Use / Equip</button>
+            <button class="inv-btn" id="inv-drop">Drop</button>
+            <button class="inv-btn" id="inv-close">Close</button>
+            <span class="inv-hint">Tab to close</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Death -->
+      <div id="death" class="screen overlay hidden">
+        <div class="death-inner">
+          <h1 class="death-title">You Died</h1>
+          <p class="death-sub" id="death-sub">The dark takes another.</p>
+          <div class="panel-actions">
+            <button class="menu-btn" data-action="retry">Retry from Checkpoint</button>
+            <button class="menu-btn" data-action="death-quit">Return to Menu</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Victory -->
+      <div id="victory" class="screen overlay hidden">
+        <div class="panel victory-panel">
+          <h2 class="victory-title">The Hollow Crown Falls</h2>
+          <p class="victory-sub">The keep is silent at last. Or perhaps it is only listening.</p>
+          <div class="victory-stats" id="victory-stats"></div>
+          <div class="panel-actions">
+            <button class="menu-btn" data-action="victory-credits">Credits</button>
+            <button class="menu-btn" data-action="victory-menu">Return to Menu</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Debug -->
+      <div id="debug-panel" class="debug-panel hidden"></div>
+    </div>
+
+  </body>
+</html>
